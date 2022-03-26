@@ -15,7 +15,7 @@ export default function MainScreen() {
     }, []);
 
     function warning(){
-        alert('Ocooreu um erro ao carregar os filmes. Por favor, tente novamente')
+        alert('Ocorreu um erro ao carregar os filmes. Por favor, tente novamente')
     }
 
     return (
