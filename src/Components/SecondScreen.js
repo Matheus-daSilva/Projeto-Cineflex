@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
+import Footer from "./Footer";
 
 export default function SecondScreen() {
     const { idFilme } = useParams();
@@ -21,6 +22,7 @@ export default function SecondScreen() {
     }
 
     return Object.values(items).length > 0 ? (
+        <>
         <Section>
             <h2>Selecione o horário</h2>
             {items.days.map(item => {
@@ -38,6 +40,8 @@ export default function SecondScreen() {
                 );
             })}
         </Section>
+        <Footer posterURL={items.posterURL} title={items.title} />
+        </>
     ) : (
         <Loading>
             <p>Ops... Carregando</p>
