@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -9,12 +10,12 @@ export default function MainScreen() {
         const promisse = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
         promisse.then(response => {
             const { data } = response;
-            setItems(data)
+            setItems(data);
         });
         promisse.catch(warning);
     }, []);
 
-    function warning(){
+    function warning() {
         alert('Ocorreu um erro ao carregar os filmes. Por favor, tente novamente')
     }
 
@@ -24,9 +25,11 @@ export default function MainScreen() {
             <Poster>
                 {items.map(item => {
                     return (
-                        <Picture key={item.id}>
-                            <img src={item.posterURL} alt={item.title}></img>
-                        </Picture>
+                        <Link to={`/sessoes/${item.id}`} key={item.id}>
+                            <Picture>
+                                <img src={item.posterURL} alt={item.title}></img>
+                            </Picture>
+                        </Link>
                     );
                 })}
             </Poster>
@@ -68,6 +71,27 @@ display: flex;
 justify-content: center;
 align-items: center;
 margin-bottom: 11px;
+transition: transform 300ms, background-color 300ms;
+animation: pulse;
+
+Picture:houver {
+    transform: scale(1.05);
+    background-color: #7FFFFF;
+}
+
+Picture:active {
+    transform: scale(0.95);
+    animation: none;
+}
+
+@keyframes pusle {
+    from{
+        box-shadow: #69bcff 0 0 0;
+    }
+    to {
+        box-shadow: #69fff380 00 27px;
+    }
+}
 `
 
 const Poster = styled.div`
