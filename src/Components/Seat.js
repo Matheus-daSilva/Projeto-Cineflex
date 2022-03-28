@@ -1,18 +1,49 @@
 import styled from 'styled-components';
+import { useState } from "react";
 
 export default function Seat(props) {
-    const { name, isAvailable } = props;
+    const { name, isAvailable, buySeats, setBuySeats } = props;
+    const [validation, setValidation] = useState(false);
     const grey = "#C3CFD9";
     const yellow = "#FBE192";
+    const green = "#8DD7CF";
     const borderGrey = "#7B8B99";
     const borderYellow = "#F7C52B";
+    const borderGreen = "#1AAE9E";
+
+    function addSeat() {
+        setBuySeats([...buySeats, parseInt(name)])
+    }
+
+    function removeSeat(i){
+        const location = buySeats.indexOf(i);
+        buySeats.splice(location, 1);
+        setBuySeats([...buySeats]);
+    }
 
     if (isAvailable) {
-        return (
-            <Div color={grey} borderColor={borderGrey}>
-                <p>{name}</p>
-            </Div>
-        )
+        if (!validation) {
+            return (
+                <Div color={grey} borderColor={borderGrey} onClick={() => {
+                    setValidation(true)
+                    addSeat();
+                    console.log(buySeats);
+                    }}>
+                    <p>{name}</p>
+                </Div>
+            )
+        }
+        else {
+            return (
+                <Div color={green} borderColor={borderGreen} onClick={() => {
+                    setValidation(false)
+                    removeSeat(parseInt(name));
+                    console.log(buySeats);
+                    }}>
+                    <p>{name}</p>
+                </Div>
+            )
+        }
     }
     else {
         return (

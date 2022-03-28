@@ -8,6 +8,7 @@ import Seat from "./Seat";
 export default function ThirdScreen() {
     const { idSessao } = useParams();
     const [items, setItems] = useState({});
+    const [buySeats, setBuySeats] = useState([]);
     const green = "#8DD7CF";
     const grey = "#C3CFD9";
     const yellow = "#FBE192";
@@ -34,7 +35,13 @@ export default function ThirdScreen() {
             <Seats>
                 {items.seats.map(item => {
                     return (
-                        <Seat key={"assento" + item.id} name={item.name} isAvailable={item.isAvailable} />
+                        <Seat
+                            key={"assento" + item.id}
+                            name={item.name}
+                            isAvailable={item.isAvailable}
+                            buySeats={buySeats}
+                            setBuySeats={setBuySeats}
+                        />
                     );
                 })}
                 <Div>
@@ -59,15 +66,26 @@ export default function ThirdScreen() {
                 </Name>
                 <CPF>
                     <h2>CPF do comprador:</h2>
-                    <input type="text" maxLength="11" minLength="11" pattern="[0-9]+" placeholder="Digite seu CPF..."></input>
+                    <input
+                        type="text"
+                        maxLength="11"
+                        minLength="11"
+                        pattern="[0-9]+"
+                        placeholder="Digite seu CPF (somente números)">
+                    </input>
                 </CPF>
             </Form>
             <Button>Reservar assento(s)</Button>
-            <Footer posterURL={items.movie.posterURL} title={items.movie.title} name={"- " +items.name} weekday={items.day.weekday} />
+            <Footer
+                posterURL={items.movie.posterURL}
+                title={items.movie.title}
+                name={"- " + items.name}
+                weekday={items.day.weekday}
+            />
         </Section>
     ) : (
         <Loading>
-            <p>Carregando</p>
+            <p>Carregando...</p>
         </Loading>
     )
 }

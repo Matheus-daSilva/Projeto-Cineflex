@@ -46,7 +46,7 @@ export default function SecondScreen() {
         </>
     ) : (
         <Loading>
-            <p>Ops... Carregando</p>
+            <p>Carregando...</p>
         </Loading>
     )
 }
@@ -125,4 +125,14 @@ height: 100%;
 display: flex;
 justify-content:center;
 align-items: center;
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.02em;
+    color: #293845;
+}
 `
