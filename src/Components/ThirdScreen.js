@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Footer from "./Footer";
+import Seat from "./Seat";
 
 export default function ThirdScreen() {
     const { idSessao } = useParams();
@@ -33,9 +34,7 @@ export default function ThirdScreen() {
             <Seats>
                 {items.seats.map(item => {
                     return (
-                        <Seat>
-                            <p key={"assento" + item.id}>{item.name}</p>
-                        </Seat>
+                        <Seat key={"assento" + item.id} name={item.name} isAvailable={item.isAvailable} />
                     );
                 })}
                 <Div>
@@ -60,7 +59,7 @@ export default function ThirdScreen() {
                 </Name>
                 <CPF>
                     <h2>CPF do comprador:</h2>
-                    <input type="text" placeholder="Digite seu CPF..."></input>
+                    <input type="text" maxLength="11" minLength="11" pattern="[0-9]+" placeholder="Digite seu CPF..."></input>
                 </CPF>
             </Form>
             <Button>Reservar assento(s)</Button>
@@ -101,20 +100,6 @@ const Seats = styled.div`
 display: flex;
 flex-wrap: wrap;
 width: 340px;
-`
-
-const Seat = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-width: 26px;
-height: 26px;
-margin-left: 7px;
-margin-bottom: 18px;
-background: #C3CFD9;
-border: 1px solid #808F9D;
-box-sizing: border-box;
-border-radius: 12px;
 `
 
 const SeatState = styled.div`
@@ -264,4 +249,14 @@ height: 100%;
 display: flex;
 justify-content:center;
 align-items: center;
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.02em;
+    color: #293845;
+}
 `
