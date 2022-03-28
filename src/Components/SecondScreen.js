@@ -58,6 +58,7 @@ flex-direction: column;
 align-items: left;
 margin-top: 67px;
 margin-left: 24px;
+margin-bottom: 117px;
 
 h2 {
     display: flex;
@@ -99,15 +100,21 @@ p{
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 83px;
-   height: 43px;
-   left: 23px;
-   top: 227px;
    background: #E8833A;
    border-radius: 3px;
    margin-right: 8px;
    margin-top: 22px;
    margin-bottom: 23px;
+   width: 83px;
+   height: 43px;
+   left: 23px;
+   top: 227px;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 18px;
+   line-height: 21px;
+   letter-spacing: 0.02em;
+   color: #FFFFFF;
 }
 `
 

@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
 export default function Footer(props) {
-    const { posterURL, title } = props;
+    const { posterURL, title, name, weekday } = props;
     return (
         <Div>
             <Picture>
                 <img src={posterURL} alt={title}></img>
             </Picture>
-            <p>{title}</p>
+            <Text>
+                <p>{title}</p>
+                <p>{weekday} {name}</p>
+            </Text>
         </Div>
     )
 }
@@ -50,4 +53,9 @@ img {
     width: 48px;
     height: 72px;
 }
+`
+
+const Text = styled.div`
+display: flex;
+flex-direction: column;
 `
