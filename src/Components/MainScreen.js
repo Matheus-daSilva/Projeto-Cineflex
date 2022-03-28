@@ -25,7 +25,7 @@ export default function MainScreen() {
             <Poster>
                 {items.map(item => {
                     return (
-                        <Link to={`/sessoes/${item.id}`} key={item.id}>
+                        <Link to={`/sessoes/${item.id}`} key={"poster" + item.id}>
                             <Picture>
                                 <img src={item.posterURL} alt={item.title}></img>
                             </Picture>

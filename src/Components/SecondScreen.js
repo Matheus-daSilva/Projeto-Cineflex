@@ -23,24 +23,26 @@ export default function SecondScreen() {
 
     return Object.values(items).length > 0 ? (
         <>
-        <Section>
-            <h2>Selecione o horário</h2>
-            {items.days.map(item => {
-                return (
-                    <Schedule>
-                        <p>{item.weekday} - {item.date}</p>
-                        <Time>
-                            {item.showtimes.map(item => {
-                                return (
-                                    <p>{item.name}</p>
-                                );
-                            })}
-                        </Time>
-                    </Schedule>
-                );
-            })}
-        </Section>
-        <Footer posterURL={items.posterURL} title={items.title} />
+            <Section>
+                <h2>Selecione o horário</h2>
+                {items.days.map(item => {
+                    return (
+                        <Schedule>
+                            <p>{item.weekday} - {item.date}</p>
+                            <Time>
+                                {item.showtimes.map(item => {
+                                    return (
+                                        <Link to={`/assentos/${item.id}`} >
+                                            <p>{item.name}</p>
+                                        </Link>
+                                    );
+                                })}
+                            </Time>
+                        </Schedule>
+                    );
+                })}
+            </Section>
+            <Footer posterURL={items.posterURL} title={items.title} />
         </>
     ) : (
         <Loading>

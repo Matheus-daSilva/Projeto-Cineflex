@@ -5,7 +5,7 @@ export default function Footer(props) {
     return (
         <Div>
             <Picture>
-                <img src={posterURL}></img>
+                <img src={posterURL} alt={title}></img>
             </Picture>
             <p>{title}</p>
         </Div>
