@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from "react";
 
 export default function Seat(props) {
-    const { name, isAvailable, buySeats, setBuySeats } = props;
+    const { name, isAvailable, buySeats, setBuySeats, id } = props;
     const [validation, setValidation] = useState(false);
     const grey = "#C3CFD9";
     const yellow = "#FBE192";
@@ -12,7 +12,7 @@ export default function Seat(props) {
     const borderGreen = "#1AAE9E";
 
     function addSeat() {
-        setBuySeats([...buySeats, parseInt(name)])
+        setBuySeats([...buySeats, id])
     }
 
     function removeSeat(i){
@@ -27,7 +27,6 @@ export default function Seat(props) {
                 <Div color={grey} borderColor={borderGrey} onClick={() => {
                     setValidation(true)
                     addSeat();
-                    console.log(buySeats);
                     }}>
                     <p>{name}</p>
                 </Div>
@@ -36,9 +35,8 @@ export default function Seat(props) {
         else {
             return (
                 <Div color={green} borderColor={borderGreen} onClick={() => {
-                    setValidation(false)
+                    setValidation(false);
                     removeSeat(parseInt(name));
-                    console.log(buySeats);
                     }}>
                     <p>{name}</p>
                 </Div>

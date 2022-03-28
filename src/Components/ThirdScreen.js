@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import Footer from "./Footer";
@@ -9,12 +9,28 @@ export default function ThirdScreen() {
     const { idSessao } = useParams();
     const [items, setItems] = useState({});
     const [buySeats, setBuySeats] = useState([]);
+    const [userName, setUserName] = useState();
+    const [userCPF, setUserCPF] = useState();
     const green = "#8DD7CF";
     const grey = "#C3CFD9";
     const yellow = "#FBE192";
     const borderGreen = "#1AAE9E";
     const borderGrey = "#7B8B99";
     const borderYellow = "#F7C52B";
+    const navigate = useNavigate();
+    const toSucesso = () => {
+        navigate("/sucesso", {
+            state:
+            {
+                userName: userName,
+                userCPF: userCPF,
+                buySeats: buySeats,
+                date: items.day.date,
+                name: items.name,
+                title: items.movie.title
+            }
+        });
+    };
 
     useEffect(() => {
         const promisse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`);
@@ -29,6 +45,15 @@ export default function ThirdScreen() {
         alert("Ops, tente novamente");
     }
 
+    function postObject() {
+        const promisse = axios.post('https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many', {
+            ids: buySeats,
+            name: userName,
+            cpf: userCPF
+        });
+        promisse.then((response) => console.log(response))
+        promisse.catch(warning);
+    }
     return Object.values(items).length > 0 ? (
         <Section>
             <h2>Selecione o(s) assento(s)</h2>
@@ -41,6 +66,7 @@ export default function ThirdScreen() {
                             isAvailable={item.isAvailable}
                             buySeats={buySeats}
                             setBuySeats={setBuySeats}
+                            id={item.id}
                         />
                     );
                 })}
@@ -62,7 +88,12 @@ export default function ThirdScreen() {
             <Form>
                 <Name>
                     <h2>Nome do comprador:</h2>
-                    <input type="text" placeholder="Digite seu nome"></input>
+                    <input
+                        type="text"
+                        placeholder="Digite seu nome"
+                        onChange={(e) => setUserName(e.target.value)}
+                    >
+                    </input>
                 </Name>
                 <CPF>
                     <h2>CPF do comprador:</h2>
@@ -71,11 +102,17 @@ export default function ThirdScreen() {
                         maxLength="11"
                         minLength="11"
                         pattern="[0-9]+"
-                        placeholder="Digite seu CPF (somente números)">
+                        placeholder="Digite seu CPF (somente números)"
+                        onChange={(e) => setUserCPF(e.target.value)}
+                    >
                     </input>
                 </CPF>
             </Form>
-            <Button>Reservar assento(s)</Button>
+            <Button onClick={() => {
+                postObject();
+                toSucesso();
+            }}
+            >Reservar assento(s)</Button>
             <Footer
                 posterURL={items.movie.posterURL}
                 title={items.movie.title}
